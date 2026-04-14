@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexSocial | Next Gen Connection</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+    <!-- Auth Gate: Registration Screen -->
+    <div id="authGate" class="auth-gate">
+        <div class="auth-card">
+            <div class="logo">
+                <ion-icon name="flash-outline"></ion-icon>
+                <span>NexSocial</span>
+            </div>
+            <h2>Create Account</h2>
+            <p>Join the next generation of social connection.</p>
+            <div class="auth-input-group">
+                <input type="text" id="regUsername" placeholder="Enter your username" autocomplete="off">
+            </div>
+            <button onclick="createUser()" class="auth-btn">Start Journey</button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="app-container">
+            <!-- Sidebar -->
+            <nav class="sidebar">
+                <div class="logo">
+                    <ion-icon name="flash-outline"></ion-icon>
+                    <span>NexSocial</span>
+                </div>
+                <div class="nav-items">
+                    <a onclick="switchView('home')" id="nav-home" class="nav-item active">
+                        <ion-icon name="home-outline"></ion-icon>
+                        <span>Home</span>
+                    </a>
+                    <a onclick="switchView('discover')" id="nav-discover" class="nav-item">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span>Discover</span>
+                    </a>
+                    <a onclick="switchView('notifications')" id="nav-notifications" class="nav-item">
+                        <ion-icon name="notifications-outline"></ion-icon>
+                        <div id="navBadge" class="badge" style="display: none;"></div>
+                        <span>Notifications</span>
+                    </a>
+                    <a onclick="switchView('profile')" id="nav-profile" class="nav-item">
+                        <ion-icon name="person-outline"></ion-icon>
+                        <span>Profile</span>
+                    </a>
+                </div>
+
+                <div class="theme-toggle-container">
+                    <button onclick="toggleTheme()" class="theme-btn">
+                        <ion-icon name="moon-outline" id="theme-icon"></ion-icon>
+                        <span id="theme-text">Dark Mode</span>
+                    </button>
+                </div>
+
+                <div class="sidebar-profile" id="sidebarProfile">
+                    <div class="avatar-placeholder" id="userAvatar">U</div>
+                    <div class="info">
+                        <strong id="displayUsername">User</strong>
+                        <span style="font-size: 0.75rem; opacity: 0.6">Verified Member</span>
+                    </div>
+                    <button onclick="logout()" class="small-logout-btn" title="Logout">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </button>
+                </div>
+            </nav>
+
+            <main class="main-content">
+                <!-- Home View -->
+                <section id="view-home" class="view-section active">
+                    <header class="top-bar"><h1>Home Feed</h1></header>
+                    <div class="post-creator">
+                        <div class="creator-header">
+                            <div class="avatar-placeholder" id="creatorAvatar">U</div>
+                            <textarea id="postContent" placeholder="Share your thoughts..."></textarea>
+                        </div>
+                        <div class="creator-footer" style="display: flex; justify-content: flex-end; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+                            <button onclick="createPost()" class="auth-btn" style="width: auto; padding: 0.6rem 2rem; border-radius: 12px;">Post Story</button>
+                        </div>
+                    </div>
+                    <div id="feed" class="feed-container"></div>
+                </section>
+
+                <!-- Discover View -->
+                <section id="view-discover" class="view-section">
+                    <header class="top-bar"><h1>Connections</h1></header>
+                    <div id="connectionsList" class="placeholder-view">
+                        <ion-icon name="people-circle-outline"></ion-icon>
+                        <h2>Your Network</h2>
+                        <p>People you follow will appear here.</p>
+                    </div>
+                </section>
+
+                <!-- Notifications View -->
+                <section id="view-notifications" class="view-section">
+                    <header class="top-bar"><h1>Notifications</h1></header>
+                    <div id="notificationsList" class="feed-container">
+                        <div class="placeholder-view">
+                            <ion-icon name="notifications-off-outline"></ion-icon>
+                            <h2>No notifications yet.</h2>
+                            <p>We'll notify you here.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile View -->
+                <section id="view-profile" class="view-section">
+                    <header class="top-bar"><h1>My Profile</h1></header>
+                    <div class="placeholder-view">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        <h2 id="profileUsername">User Profile</h2>
+                        <p>Joined NexSocial today.</p>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Widget Bar -->
+            <aside class="right-bar">
+                <div class="sidebar-widget">
+                    <h3>Trending Stories</h3>
+                    <div class="trend-item"><strong>#NexSocial</strong> <span>420 stories</span></div>
+                    <div class="trend-item"><strong>#DesignStyle</strong> <span>1.2k stories</span></div>
+                    <div class="trend-item"><strong>#ModernWeb</strong> <span>850 stories</span></div>
+                </div>
+                
+                <div class="sidebar-widget">
+                    <h3>Who to follow</h3>
+                    <div class="suggest-item">
+                        <div class="avatar-placeholder" style="width: 36px; height: 36px; font-size: 0.8rem;">AD</div>
+                        <div class="info">
+                            <strong>Alex Designer</strong><br>
+                            <span style="font-size: 0.75rem; opacity: 0.6;">@alexd</span>
+                        </div>
+                        <button onclick="followUser('Alex Designer', 'alexd', this)" class="follow-btn">Follow</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Toast UI -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
+
+
