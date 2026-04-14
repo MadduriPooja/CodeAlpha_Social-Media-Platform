@@ -18,7 +18,7 @@ This project demonstrates core social features like user profiles, posts, commen
 
 Follow these steps to run and view the app locally:
 
-1. Clone the Repository
+1.Clone the Repository
     After cloning..
 
 2.Make sure you have Node.js installed. Then run:
